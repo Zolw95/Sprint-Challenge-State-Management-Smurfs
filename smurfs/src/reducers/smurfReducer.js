@@ -27,6 +27,12 @@ export default (state = initialState, action) => {
         smurfs: action.payload,
         loading: false,
       };
+
+    case DELETE_SMURF:
+      return {
+        ...state,
+        smurfs: state.smurfs.filter((smurf) => smurf.id !== action.payload),
+      };
     default:
       return state;
   }

@@ -40,6 +40,20 @@ export const addSmurfs = (smurf) => {
   };
 };
 
+export const deleteSmurfs = (id) => {
+  console.log("Delete Smurf - ID", id);
+  return async (dispatch) => {
+    const res = await fetch(`http://localhost:3333/smurfs/${id}`, {
+      method: "DELETE",
+    });
+    const data = await res.json();
+    dispatch({
+      type: DELETE_SMURF,
+      payload: id,
+    });
+  };
+};
+
 // Set loading to true
 export const setLoading = () => {
   return {
