@@ -2,6 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import Smurfs from "./Smurfs";
 import AddSmurf from "./AddSmurf";
+import EditSmurf from "./EditSmurf";
 import store from "../store";
 import "./App.css";
 
@@ -15,6 +16,7 @@ const App = () => {
         <div>Have fun!</div>
       </div>
       <AddSmurf />
+      <EditSmurf />
       <Smurfs />
     </Provider>
   );

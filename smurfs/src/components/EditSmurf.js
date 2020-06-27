@@ -1,36 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { addSmurfs, updateSmurf } from "../actions/smurfActions";
+import { updateSmurf } from "../actions/smurfActions";
 
-const AddSmurf = ({ addSmurfs }) => {
+const EditSmurf = ({ current, updateSmurf }) => {
   const [name, setName] = useState("");
   const [height, setHeight] = useState("");
   const [age, setAge] = useState("");
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-
-    if (name === "" || height === "" || age === "") {
-      alert("Please Make Sure All Fields Are Filled In");
-    } else {
-      const newSmurf = {
-        name,
-        height,
-        age,
-        id: Date.now(),
-      };
-      addSmurfs(newSmurf);
-
-      // Reset All Fields after Submit
-      setAge("");
-      setName("");
-      setHeight("");
+  useEffect(() => {
+    if (current) {
+      setName(current.name);
+      setHeight(current.height);
+      setAge(current.age);
     }
-  };
+  }, [current]);
 
+  const onEdit = () => {
+    const updSmurf = {
+      id: current.id,
+      name,
+      height,
+      age,
+    };
+    updateSmurf(updSmurf);
+
+    // Clear fields
+    setName("");
+    setHeight("");
+    setAge("");
+  };
   return (
     <div>
-      <h4>Add Smurf To Village</h4>
+      <h4>UPDATE Smurf</h4>
       <div>
         <input
           type="text"
@@ -60,12 +61,16 @@ const AddSmurf = ({ addSmurfs }) => {
         <label htmlFor="age">Smurf Age</label>
       </div>
       <div>
-        <a href="#!" onClick={onSubmit}>
-          Add Smurf
+        <a href="#!" onClick={onEdit}>
+          Update
         </a>
       </div>
     </div>
   );
 };
 
-export default connect(null, { addSmurfs })(AddSmurf);
+const mapStateToProps = (state) => ({
+  current: state.smurf.current,
+});
+
+export default connect(mapStateToProps, { updateSmurf })(EditSmurf);

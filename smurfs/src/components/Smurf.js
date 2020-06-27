@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { deleteSmurfs } from "../actions/smurfActions";
+import { deleteSmurfs, setCurrent } from "../actions/smurfActions";
 
-const Smurf = ({ smurf, deleteSmurfs }) => {
+const Smurf = ({ smurf, deleteSmurfs, setCurrent }) => {
   const onDelete = () => {
     deleteSmurfs(smurf.id);
     console.log("Smurf Id from Smurf Comp", smurf.id);
@@ -17,9 +17,12 @@ const Smurf = ({ smurf, deleteSmurfs }) => {
         <a href="#!" onClick={onDelete}>
           Delete
         </a>
+        <a href="#!" onClick={() => setCurrent(smurf)}>
+          Edit
+        </a>
       </div>
     </div>
   );
 };
 
-export default connect(null, { deleteSmurfs })(Smurf);
+export default connect(null, { deleteSmurfs, setCurrent })(Smurf);

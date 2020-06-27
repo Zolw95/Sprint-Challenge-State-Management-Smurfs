@@ -33,6 +33,19 @@ export default (state = initialState, action) => {
         ...state,
         smurfs: state.smurfs.filter((smurf) => smurf.id !== action.payload),
       };
+
+    case UPDATE_SMURF:
+      return {
+        ...state,
+        smurfs: state.smurfs.map((smurf) =>
+          smurf.id === action.payload.id ? action.payload : smurf
+        ),
+      };
+    case SET_CURRENT:
+      return {
+        ...state,
+        current: action.payload,
+      };
     default:
       return state;
   }

@@ -54,6 +54,33 @@ export const deleteSmurfs = (id) => {
   };
 };
 
+export const updateSmurf = (smurf) => {
+  setLoading();
+  return async (dispatch) => {
+    const res = await fetch(`http://localhost:3333/smurfs/${smurf.id}`, {
+      method: "PUT",
+      body: JSON.stringify(smurf),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await res.json();
+
+    dispatch({
+      type: UPDATE_SMURF,
+      payload: data,
+    });
+  };
+};
+
+export const setCurrent = (smurf) => {
+  return {
+    type: SET_CURRENT,
+    payload: smurf,
+  };
+};
+
 // Set loading to true
 export const setLoading = () => {
   return {
